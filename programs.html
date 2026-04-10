@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programs | Advance Learning Path</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-left">
+                <a href="tel:+919876543210"><i class="fas fa-phone-alt"></i> +91 98765 43210</a>
+                <a href="mailto:info@advancelearningpath.com"><i class="fas fa-envelope"></i> info@advancelearningpath.com</a>
+            </div>
+            <div class="top-bar-right">
+                <span>Follow Us:</span>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-x-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+    <header class="header" id="header">
+        <div class="container">
+            <a href="/" class="logo"><img src="advance_learning_path_logo.jpeg" alt="Advance Learning Path"></a>
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="/universities" class="nav-link">Universities</a></li>
+                    <li class="nav-item"><a href="/programs" class="nav-link">Programs</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link">About <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown">
+                            <a href="/about" class="dropdown-item">About Us</a>
+                            <a href="/contact" class="dropdown-item">Contact Us</a>
+                            <a href="/blog" class="dropdown-item">Blog</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="/contact" class="btn btn-primary btn-sm">Talk to Expert</a>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="page-hero-bg"></div>
+        <div class="container">
+            <h1>Our <span class="text-gradient">Programs</span></h1>
+            <p>Explore 50+ online programs from India's top universities.</p>
+        </div>
+    </section>
+
+    <section class="programs-page">
+        <div class="container">
+            <div class="program-filter">
+                <button class="filter-btn active" data-filter="all">All Programs</button>
+                <button class="filter-btn" data-filter="pg">Postgraduate</button>
+                <button class="filter-btn" data-filter="ug">Undergraduate</button>
+            </div>
+            <div class="programs-grid" id="programsGrid">
+                <div class="program-card-full" data-category="pg">
+                    <div class="program-card-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="program-card-content">
+                        <h3>Online MBA</h3>
+                        <p>Develop leadership skills and business acumen for the modern marketplace. Specialisations in HR, Finance, Marketing, Operations, and more.</p>
+                        <div class="program-meta">
+                            <span><i class="fas fa-clock"></i> 2 Years</span>
+                            <span><i class="fas fa-rupee-sign"></i> 1.5L - 4L</span>
+                            <span><i class="fas fa-graduation-cap"></i> Bachelor's Degree</span>
+                        </div>
+                        <a href="/programs/mba" class="btn btn-primary btn-sm">Learn More</a>
+                    </div>
+                </div>
+                <div class="program-card-full" data-category="pg">
+                    <div class="program-card-icon"><i class="fas fa-laptop-code"></i></div>
+                    <div class="program-card-content">
+                        <h3>Online MCA</h3>
+                        <p>Gain expertise in software development, data science, and cloud computing for the digital age.</p>
+                        <div class="program-meta">
+                            <span><i class="fas fa-clock"></i> 2 Years</span>
+                            <span><i class="fas fa-rupee-sign"></i> 1L - 3L</span>
+                            <span><i class="fas fa-graduation-cap"></i> Bachelor's Degree</span>
+                        </div>
+                        <a href="/programs/mca" class="btn btn-primary btn-sm">Learn More</a>
+                    </div>
+                </div>
+                <div class="program-card-full" data-category="pg">
+                    <div class="program-card-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                    <div class="program-card-content">
+                        <h3>Online MCom</h3>
+                        <p>Deepen your understanding of finance, accounting, taxation, and business analysis.</p>
+                        <div class="program-meta">
+                            <span><i class="fas fa-clock"></i> 2 Years</span>
+                            <span><i class="fas fa-rupee-sign"></i> 50K - 1.5L</span>
+                            <span><i class="fas fa-graduation-cap"></i> Bachelor's Degree</span>
+                        </div>
+                        <a href="/programs/mcom" class="btn btn-primary btn-sm">Learn More</a>
+                    </div>
+                </div>
+                <div class="program-card-full" data-category="pg">
+                    <div class="program-card-icon"><i class="fas fa-award"></i></div>
+                    <div class="program-card-content">
+                        <h3>Online PGDM</h3>
+                        <p>Master essential management principles for diverse industries with industry-aligned curriculum.</p>
+                        <div class="program-meta">
+                            <span><i class="fas fa-clock"></i> 2 Years</span>
+                            <span><i class="fas fa-rupee-sign"></i> 2L - 5L</span>
+                            <span><i class="fas fa-graduation-cap"></i> Bachelor's Degree</span>
+                        </div>
+                        <a href="/programs/pgdm" class="btn btn-primary btn-sm">Learn More</a>
+                    </div>
+                </div>
+                <div class="program-card-full" data-category="pg">
+                    <div class="program-card-icon"><i class="fas fa-palette"></i></div>
+                    <div class="program-card-content">
+                        <h3>Online MA</h3>
+                        <p>Explore arts, humanities, psychology, and social sciences with flexible learning options.</p>
+                        <div class="program-meta">
+                            <span><i class="fas fa-clock"></i> 2 Years</span>
+                            <span><i class="fas fa-rupee-sign"></i> 30K - 1L</span>
+                            <span><i class="fas fa-graduation-cap"></i> Bachelor's Degree</span>
+                        </div>
+                        <a href="/programs/ma" class="btn btn-primary btn-sm">Learn More</a>
+                    </div>
+                </div>
+                <div class="program-card-full" data-category="ug">
+                    <div class="program-card-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="program-card-content">
+                        <h3>Online BBA</h3>
+                        <p>Develop essential business skills and leadership qualities to kickstart your career.</p>
+                        <div class="program-meta">
+                            <span><i class="fas fa-clock"></i> 3 Years</span>
+                            <span><i class="fas fa-rupee-sign"></i> 50K - 2L</span>
+                            <span><i class="fas fa-graduation-cap"></i> 10+2</span>
+                        </div>
+                        <a href="/programs/bba" class="btn btn-primary btn-sm">Learn More</a>
+                    </div>
+                </div>
+                <div class="program-card-full" data-category="ug">
+                    <div class="program-card-icon"><i class="fas fa-code"></i></div>
+                    <div class="program-card-content">
+                        <h3>Online BCA</h3>
+                        <p>Master computer application fundamentals and open doors to the IT field.</p>
+                        <div class="program-meta">
+                            <span><i class="fas fa-clock"></i> 3 Years</span>
+                            <span><i class="fas fa-rupee-sign"></i> 50K - 1.5L</span>
+                            <span><i class="fas fa-graduation-cap"></i> 10+2</span>
+                        </div>
+                        <a href="/programs/bca" class="btn btn-primary btn-sm">Learn More</a>
+                    </div>
+                </div>
+                <div class="program-card-full" data-category="ug">
+                    <div class="program-card-icon"><i class="fas fa-calculator"></i></div>
+                    <div class="program-card-content">
+                        <h3>Online BCom</h3>
+                        <p>Acquire comprehensive knowledge in commerce, finance, and accounting.</p>
+                        <div class="program-meta">
+                            <span><i class="fas fa-clock"></i> 3 Years</span>
+                            <span><i class="fas fa-rupee-sign"></i> 30K - 1L</span>
+                            <span><i class="fas fa-graduation-cap"></i> 10+2</span>
+                        </div>
+                        <a href="/programs/bcom" class="btn btn-primary btn-sm">Learn More</a>
+                    </div>
+                </div>
+                <div class="program-card-full" data-category="ug">
+                    <div class="program-card-icon"><i class="fas fa-book-open"></i></div>
+                    <div class="program-card-content">
+                        <h3>Online BA</h3>
+                        <p>Explore arts, humanities, and social sciences with flexible learning options.</p>
+                        <div class="program-meta">
+                            <span><i class="fas fa-clock"></i> 3 Years</span>
+                            <span><i class="fas fa-rupee-sign"></i> 20K - 80K</span>
+                            <span><i class="fas fa-graduation-cap"></i> 10+2</span>
+                        </div>
+                        <a href="/programs/ba" class="btn btn-primary btn-sm">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-col footer-about">
+                        <img src="advance_learning_path_logo.jpeg" alt="Advance Learning Path" class="footer-logo">
+                        <p>Simplify your learning journey and upgrade your skills with our wide array of online degrees, diplomas, and certification courses.</p>
+                        <div class="footer-social">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-x-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <h4>University Partners</h4>
+                        <ul>
+                            <li><a href="#">Amity University Online</a></li>
+                            <li><a href="#">Symbiosis University Online</a></li>
+                            <li><a href="#">Manipal University Online</a></li>
+                            <li><a href="#">LPU Online</a></li>
+                            <li><a href="#">Jain University Online</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Programs</h4>
+                        <ul>
+                            <li><a href="/programs/mba">Online MBA</a></li>
+                            <li><a href="/programs/mca">Online MCA</a></li>
+                            <li><a href="/programs/mcom">Online MCom</a></li>
+                            <li><a href="/programs/bba">Online BBA</a></li>
+                            <li><a href="/programs/bca">Online BCA</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Contact Info</h4>
+                        <ul class="footer-contact">
+                            <li><i class="fas fa-phone-alt"></i> <a href="tel:+919876543210">+91 98765 43210</a></li>
+                            <li><i class="fas fa-envelope"></i> <a href="mailto:info@advancelearningpath.com">info@advancelearningpath.com</a></li>
+                            <li><i class="fas fa-clock"></i> Mon - Sat: 10:00 AM - 7:00 PM</li>
+                            <li><i class="fas fa-map-marker-alt"></i> Gurugram, Haryana, India</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2026 Advance Learning Path. All Rights Reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <a href="#" class="whatsapp-float" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    <script src="js/main.js"></script>
+    <script>
+        document.querySelectorAll('.filter-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+                this.classList.add('active');
+                var filter = this.getAttribute('data-filter');
+                document.querySelectorAll('.program-card-full').forEach(function(card) {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

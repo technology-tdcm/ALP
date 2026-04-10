@@ -1,0 +1,121 @@
+<div id="programContent"></div>
+<script>
+var data = <%- JSON.stringify(program) %>;
+document.title = data.title + ' | Advance Learning Path';
+
+var uniList = data.universities.map(function(u) {
+    return '<div class="affil-card"><div class="affil-badge">' + u.badge + '</div><div class="affil-info"><h4>' + u.name + '</h4><p>' + u.accreditation + '</p><span>' + u.specializations + '</span></div></div>';
+}).join('');
+
+var specList = data.specializations.map(function(s) {
+    return '<div class="spec-card"><div class="spec-icon"><i class="' + s.icon + '"></i></div><h4>' + s.name + '</h4><p>' + s.desc + '</p></div>';
+}).join('');
+
+var semContent = data.syllabus.map(function(sem) {
+    var subjects = sem.subjects.map(function(sub) { return '<li>' + sub + '</li>'; }).join('');
+    return '<div class="sem-card"><div class="sem-header"><span class="sem-num">' + sem.semester + '</span><h4>' + sem.title + '</h4></div><ul class="sem-subjects">' + subjects + '</ul></div>';
+}).join('');
+
+var skillsList = data.skills.map(function(s) { return '<div class="skill-item"><i class="fas fa-check-circle"></i><span>' + s + '</span></div>'; }).join('');
+var feesRows = data.fees.map(function(f) { return '<tr><td>' + f.university + '</td><td>' + f.fee + '</td></tr>'; }).join('');
+var jobsRows = data.jobs.map(function(j) { return '<tr><td>' + j.role + '</td><td>' + j.salary + '</td></tr>'; }).join('');
+
+var benefitsList = data.benefits.map(function(b) {
+    return '<div class="benefit-item"><div class="benefit-icon"><i class="' + b.icon + '"></i></div><h4>' + b.title + '</h4><p>' + b.desc + '</p></div>';
+}).join('');
+
+var whoList = data.whoShould.map(function(w, i) {
+    return '<div class="who-item"><span class="who-num">' + (i + 1) + '</span><div><h4>' + w.title + '</h4><p>' + w.desc + '</p></div></div>';
+}).join('');
+
+var faqList = data.faqs.map(function(f) {
+    return '<div class="faq-item"><button class="faq-question"><span>' + f.q + '</span><i class="fas fa-chevron-down"></i></button><div class="faq-answer"><p>' + f.a + '</p></div></div>';
+}).join('');
+
+var recruitersList = data.recruiters.map(function(r) { return '<div class="recruiter-card">' + r + '</div>'; }).join('');
+
+var html = '';
+html += '<section class="prog-hero"><div class="prog-hero-bg"></div><div class="container"><div class="prog-hero-content"><div class="prog-hero-text">';
+html += '<span class="section-badge">' + data.level + ' Program</span>';
+html += '<h1>' + data.heroTitle + '</h1>';
+html += '<p class="prog-hero-desc">' + data.heroDesc + '</p>';
+html += '<div class="prog-hero-meta">';
+html += '<div class="prog-meta-item"><i class="fas fa-clock"></i><div><strong>Duration</strong><span>' + data.duration + '</span></div></div>';
+html += '<div class="prog-meta-item"><i class="fas fa-rupee-sign"></i><div><strong>Fees</strong><span>' + data.feesRange + '</span></div></div>';
+html += '<div class="prog-meta-item"><i class="fas fa-graduation-cap"></i><div><strong>Eligibility</strong><span>' + data.eligibility + '</span></div></div>';
+html += '</div>';
+html += '<div class="prog-hero-actions"><a href="/enquiry" class="btn btn-primary btn-lg">Get Free Counselling <i class="fas fa-arrow-right"></i></a><a href="#syllabus" class="btn btn-outline-white btn-lg">View Syllabus</a></div>';
+html += '</div></div></div></section>';
+
+html += '<section class="prog-section"><div class="container"><div class="prog-about-grid"><div class="prog-about-text">';
+html += '<span class="section-badge">Overview</span><h2>What is ' + data.fullName + '?</h2><p>' + data.about + '</p>';
+html += '</div><div class="prog-about-image"><div class="prog-img-placeholder"><i class="' + data.icon + '"></i></div></div></div></div></section>';
+
+html += '<section class="prog-section prog-bg"><div class="container">';
+html += '<div class="section-header"><span class="section-badge">Advantages</span><h2>Benefits of Pursuing ' + data.fullName + '</h2></div>';
+html += '<div class="benefits-grid">' + benefitsList + '</div></div></section>';
+
+html += '<section class="prog-section"><div class="container">';
+html += '<div class="section-header"><span class="section-badge">Ideal For</span><h2>Who Should Pursue ' + data.fullName + '?</h2></div>';
+html += '<div class="who-grid">' + whoList + '</div></div></section>';
+
+html += '<section class="prog-section prog-bg"><div class="container">';
+html += '<div class="section-header"><span class="section-badge">Requirements</span><h2>Eligibility Criteria</h2></div>';
+html += '<div class="eligibility-card"><ul class="eligibility-list">' + data.eligibilityCriteria.map(function(e) { return '<li><i class="fas fa-check-circle"></i><span>' + e + '</span></li>'; }).join('') + '</ul></div></div></section>';
+
+html += '<section class="prog-section" id="specializations"><div class="container">';
+html += '<div class="section-header"><span class="section-badge">Specialisations</span><h2>Top ' + data.fullName + ' Specialisations</h2><p>Choose from industry-relevant specialisations designed for career growth.</p></div>';
+html += '<div class="spec-grid-full">' + specList + '</div></div></section>';
+
+html += '<section class="prog-section prog-bg" id="syllabus"><div class="container">';
+html += '<div class="section-header"><span class="section-badge">Curriculum</span><h2>' + data.fullName + ' Syllabus</h2></div>';
+html += '<div class="syllabus-grid">' + semContent + '</div></div></section>';
+
+html += '<section class="prog-section"><div class="container">';
+html += '<div class="section-header"><span class="section-badge">Skill Development</span><h2>Skills You Will Acquire</h2></div>';
+html += '<div class="skills-grid">' + skillsList + '</div></div></section>';
+
+html += '<section class="prog-section prog-bg"><div class="container">';
+html += '<div class="section-header"><span class="section-badge">Fee Structure</span><h2>' + data.fullName + ' Fees</h2><p>Compare fees across our affiliated universities.</p></div>';
+html += '<div class="fees-table-wrap"><table class="fees-table"><thead><tr><th>University</th><th>Total Fees (INR)</th></tr></thead><tbody>' + feesRows + '</tbody></table></div>';
+html += '<p class="fees-note">Note: Fees are indicative and may vary. Contact us for the latest fee structure and EMI options.</p></div></section>';
+
+html += '<section class="prog-section"><div class="container">';
+html += '<div class="section-header"><span class="section-badge">Affiliated Universities</span><h2>Universities Offering ' + data.fullName + '</h2><p>We are affiliated with India\'s top universities offering this program.</p></div>';
+html += '<div class="affil-grid">' + uniList + '</div></div></section>';
+
+html += '<section class="prog-section prog-bg"><div class="container">';
+html += '<div class="section-header"><span class="section-badge">Admission</span><h2>Admission Process</h2></div>';
+html += '<div class="process-grid">' + data.admissionSteps.map(function(s, i) {
+    return '<div class="process-card"><div class="process-num">' + ('0' + (i + 1)) + '</div><div class="process-icon"><i class="' + s.icon + '"></i></div><h4>' + s.title + '</h4><p>' + s.desc + '</p></div>';
+}).join('') + '</div></div></section>';
+
+html += '<section class="prog-section"><div class="container">';
+html += '<div class="section-header"><span class="section-badge">Career Scope</span><h2>Job Roles & Salary After ' + data.fullName + '</h2></div>';
+html += '<div class="jobs-table-wrap"><table class="jobs-table"><thead><tr><th>Job Role</th><th>Avg. Salary (INR)</th></tr></thead><tbody>' + jobsRows + '</tbody></table></div></div></section>';
+
+html += '<section class="prog-section prog-bg"><div class="container">';
+html += '<div class="section-header"><span class="section-badge">Top Recruiters</span><h2>Companies Hiring Graduates</h2></div>';
+html += '<div class="recruiters-grid">' + recruitersList + '</div></div></section>';
+
+html += '<section class="prog-cta"><div class="container"><h2>Ready to Start Your ' + data.fullName + ' Journey?</h2><p>Connect with our education experts and find the perfect university for your goals.</p><a href="/enquiry" class="btn btn-primary btn-lg">Get Free Counselling <i class="fas fa-arrow-right"></i></a></div></section>';
+
+html += '<section class="prog-section"><div class="container">';
+html += '<div class="section-header"><span class="section-badge">FAQs</span><h2>Frequently Asked Questions</h2></div>';
+html += '<div class="faq-list">' + faqList + '</div></div></section>';
+
+document.getElementById('programContent').innerHTML = html;
+
+document.querySelectorAll('.faq-question').forEach(function(question) {
+    question.addEventListener('click', function() {
+        var item = this.parentElement;
+        var answer = item.querySelector('.faq-answer');
+        var isActive = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(function(faqItem) {
+            faqItem.classList.remove('active');
+            faqItem.querySelector('.faq-answer').style.maxHeight = null;
+        });
+        if (!isActive) { item.classList.add('active'); answer.style.maxHeight = answer.scrollHeight + 'px'; }
+    });
+});
+</script>

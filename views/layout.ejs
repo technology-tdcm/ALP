@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= typeof title !== 'undefined' ? title + ' | Advance Learning Path' : 'Advance Learning Path | Your Expert Guide to Online Education' %></title>
+    <meta name="description" content="Advance Learning Path simplifies your online education journey with expert guidance, top university partnerships, and personalized career counselling.">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <script>
+        window.pageContent = <%- typeof content !== 'undefined' ? JSON.stringify(content).replace(/<\/script>/gi, '<\\/script>') : '{}' %>;
+    </script>
+    <%- include('partials/header') %>
+    <%- include('pages/' + page) %>
+    <%- include('partials/footer') %>
+    <script src="/js/main.js"></script>
+    <%- typeof scripts !== 'undefined' ? scripts : '' %>
+</body>
+</html>

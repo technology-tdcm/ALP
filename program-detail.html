@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Program | Advance Learning Path</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-left">
+                <a href="tel:+919876543210"><i class="fas fa-phone-alt"></i> +91 98765 43210</a>
+                <a href="mailto:info@advancelearningpath.com"><i class="fas fa-envelope"></i> info@advancelearningpath.com</a>
+            </div>
+            <div class="top-bar-right">
+                <span>Follow Us:</span>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-x-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+    <header class="header" id="header">
+        <div class="container">
+            <a href="/" class="logo"><img src="/advance_learning_path_logo.jpeg" alt="Advance Learning Path"></a>
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="/universities" class="nav-link">Universities</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="/programs" class="nav-link">Programs <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown dropdown-mega">
+                            <div class="mega-grid">
+                                <div class="mega-col">
+                                    <h5><i class="fas fa-user-graduate"></i> Postgraduate</h5>
+                                    <a href="/programs/mba" class="mega-item"><span class="mega-icon"><i class="fas fa-chart-line"></i></span><span class="mega-info"><strong>Online MBA</strong><small>2 Years | 1.5L - 4L</small></span></a>
+                                    <a href="/programs/mca" class="mega-item"><span class="mega-icon"><i class="fas fa-laptop-code"></i></span><span class="mega-info"><strong>Online MCA</strong><small>2 Years | 1L - 3L</small></span></a>
+                                    <a href="/programs/mcom" class="mega-item"><span class="mega-icon"><i class="fas fa-file-invoice-dollar"></i></span><span class="mega-info"><strong>Online MCom</strong><small>2 Years | 50K - 1.5L</small></span></a>
+                                    <a href="/programs/pgdm" class="mega-item"><span class="mega-icon"><i class="fas fa-award"></i></span><span class="mega-info"><strong>Online PGDM</strong><small>2 Years | 2L - 5L</small></span></a>
+                                    <a href="/programs/ma" class="mega-item"><span class="mega-icon"><i class="fas fa-palette"></i></span><span class="mega-info"><strong>Online MA</strong><small>2 Years | 30K - 1L</small></span></a>
+                                </div>
+                                <div class="mega-col">
+                                    <h5><i class="fas fa-book-reader"></i> Undergraduate</h5>
+                                    <a href="/programs/bba" class="mega-item"><span class="mega-icon"><i class="fas fa-briefcase"></i></span><span class="mega-info"><strong>Online BBA</strong><small>3 Years | 50K - 2L</small></span></a>
+                                    <a href="/programs/bca" class="mega-item"><span class="mega-icon"><i class="fas fa-code"></i></span><span class="mega-info"><strong>Online BCA</strong><small>3 Years | 50K - 1.5L</small></span></a>
+                                    <a href="/programs/bcom" class="mega-item"><span class="mega-icon"><i class="fas fa-calculator"></i></span><span class="mega-info"><strong>Online BCom</strong><small>3 Years | 30K - 1L</small></span></a>
+                                    <a href="/programs/ba" class="mega-item"><span class="mega-icon"><i class="fas fa-book-open"></i></span><span class="mega-info"><strong>Online BA</strong><small>3 Years | 20K - 80K</small></span></a>
+                                    <div class="mega-cta">
+                                        <a href="/programs"><i class="fas fa-arrow-right"></i> Explore All Programs</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link">About <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown">
+                            <a href="/contact" class="dropdown-item"><i class="fas fa-envelope"></i> Contact Us</a>
+                            <a href="/about" class="dropdown-item"><i class="fas fa-info-circle"></i> About Us</a>
+                            <a href="/blog" class="dropdown-item"><i class="fas fa-newspaper"></i> Blog</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="/contact" class="btn btn-primary btn-sm">Talk to Expert</a>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </header>
+
+    <div id="programContent"></div>
+
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-col footer-about">
+                        <img src="/advance_learning_path_logo.jpeg" alt="Advance Learning Path" class="footer-logo">
+                        <p>Simplify your learning journey and upgrade your skills with our wide array of online degrees, diplomas, and certification courses.</p>
+                        <div class="footer-social">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-x-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <h4>University Partners</h4>
+                        <ul>
+                            <li><a href="#">Amity University Online</a></li>
+                            <li><a href="#">Symbiosis University Online</a></li>
+                            <li><a href="#">Manipal University Online</a></li>
+                            <li><a href="#">LPU Online</a></li>
+                            <li><a href="#">Jain University Online</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Programs</h4>
+                        <ul>
+                            <li><a href="/programs/mba">Online MBA</a></li>
+                            <li><a href="/programs/mca">Online MCA</a></li>
+                            <li><a href="/programs/mcom">Online MCom</a></li>
+                            <li><a href="/programs/bba">Online BBA</a></li>
+                            <li><a href="/programs/bca">Online BCA</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Contact Info</h4>
+                        <ul class="footer-contact">
+                            <li><i class="fas fa-phone-alt"></i> <a href="tel:+919876543210">+91 98765 43210</a></li>
+                            <li><i class="fas fa-envelope"></i> <a href="mailto:info@advancelearningpath.com">info@advancelearningpath.com</a></li>
+                            <li><i class="fas fa-clock"></i> Mon - Sat: 10:00 AM - 7:00 PM</li>
+                            <li><i class="fas fa-map-marker-alt"></i> Gurugram, Haryana, India</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2026 Advance Learning Path. All Rights Reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <a href="#" class="whatsapp-float" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    <script src="/js/main.js"></script>
+    <script>
+        var slug = window.location.pathname.split('/').pop();
+        fetch('/api/program/' + slug).then(function(r) {
+            if (!r.ok) { window.location.href = '/programs'; return; }
+            return r.json();
+        }).then(function(data) {
+            if (!data) return;
+            document.title = data.title + ' | Advance Learning Path';
+
+            var uniList = data.universities.map(function(u) {
+                return '<div class="affil-card"><div class="affil-badge">' + u.badge + '</div><div class="affil-info"><h4>' + u.name + '</h4><p>' + u.accreditation + '</p><span>' + u.specializations + '</span></div></div>';
+            }).join('');
+
+            var specList = data.specializations.map(function(s) {
+                return '<div class="spec-card"><div class="spec-icon"><i class="' + s.icon + '"></i></div><h4>' + s.name + '</h4><p>' + s.desc + '</p></div>';
+            }).join('');
+
+            var semContent = data.syllabus.map(function(sem) {
+                var subjects = sem.subjects.map(function(sub) { return '<li>' + sub + '</li>'; }).join('');
+                return '<div class="sem-card"><div class="sem-header"><span class="sem-num">' + sem.semester + '</span><h4>' + sem.title + '</h4></div><ul class="sem-subjects">' + subjects + '</ul></div>';
+            }).join('');
+
+            var skillsList = data.skills.map(function(s) {
+                return '<div class="skill-item"><i class="fas fa-check-circle"></i><span>' + s + '</span></div>';
+            }).join('');
+
+            var feesRows = data.fees.map(function(f) {
+                return '<tr><td>' + f.university + '</td><td>' + f.fee + '</td></tr>';
+            }).join('');
+
+            var jobsRows = data.jobs.map(function(j) {
+                return '<tr><td>' + j.role + '</td><td>' + j.salary + '</td></tr>';
+            }).join('');
+
+            var benefitsList = data.benefits.map(function(b) {
+                return '<div class="benefit-item"><div class="benefit-icon"><i class="' + b.icon + '"></i></div><h4>' + b.title + '</h4><p>' + b.desc + '</p></div>';
+            }).join('');
+
+            var whoList = data.whoShould.map(function(w, i) {
+                return '<div class="who-item"><span class="who-num">' + (i + 1) + '</span><div><h4>' + w.title + '</h4><p>' + w.desc + '</p></div></div>';
+            }).join('');
+
+            var faqList = data.faqs.map(function(f) {
+                return '<div class="faq-item"><button class="faq-question"><span>' + f.q + '</span><i class="fas fa-chevron-down"></i></button><div class="faq-answer"><p>' + f.a + '</p></div></div>';
+            }).join('');
+
+            var recruitersList = data.recruiters.map(function(r) {
+                return '<div class="recruiter-card">' + r + '</div>';
+            }).join('');
+
+            var html = '';
+            html += '<section class="prog-hero">';
+            html += '<div class="prog-hero-bg"></div>';
+            html += '<div class="container"><div class="prog-hero-content">';
+            html += '<div class="prog-hero-text">';
+            html += '<span class="section-badge">' + data.level + ' Program</span>';
+            html += '<h1>' + data.heroTitle + '</h1>';
+            html += '<p class="prog-hero-desc">' + data.heroDesc + '</p>';
+            html += '<div class="prog-hero-meta">';
+            html += '<div class="prog-meta-item"><i class="fas fa-clock"></i><div><strong>Duration</strong><span>' + data.duration + '</span></div></div>';
+            html += '<div class="prog-meta-item"><i class="fas fa-rupee-sign"></i><div><strong>Fees</strong><span>' + data.feesRange + '</span></div></div>';
+            html += '<div class="prog-meta-item"><i class="fas fa-graduation-cap"></i><div><strong>Eligibility</strong><span>' + data.eligibility + '</span></div></div>';
+            html += '</div>';
+            html += '<div class="prog-hero-actions"><a href="/contact" class="btn btn-primary btn-lg">Get Free Counselling <i class="fas fa-arrow-right"></i></a><a href="#syllabus" class="btn btn-outline-white btn-lg">View Syllabus</a></div>';
+            html += '</div></div></div></section>';
+
+            html += '<section class="prog-section"><div class="container">';
+            html += '<div class="prog-about-grid"><div class="prog-about-text">';
+            html += '<span class="section-badge">Overview</span>';
+            html += '<h2>What is ' + data.fullName + '?</h2>';
+            html += '<p>' + data.about + '</p>';
+            html += '</div><div class="prog-about-image"><div class="prog-img-placeholder"><i class="' + data.icon + '"></i></div></div></div>';
+            html += '</div></section>';
+
+            html += '<section class="prog-section prog-bg"><div class="container">';
+            html += '<div class="section-header"><span class="section-badge">Advantages</span><h2>Benefits of Pursuing ' + data.fullName + '</h2></div>';
+            html += '<div class="benefits-grid">' + benefitsList + '</div>';
+            html += '</div></section>';
+
+            html += '<section class="prog-section"><div class="container">';
+            html += '<div class="section-header"><span class="section-badge">Ideal For</span><h2>Who Should Pursue ' + data.fullName + '?</h2></div>';
+            html += '<div class="who-grid">' + whoList + '</div>';
+            html += '</div></section>';
+
+            html += '<section class="prog-section prog-bg"><div class="container">';
+            html += '<div class="section-header"><span class="section-badge">Requirements</span><h2>Eligibility Criteria</h2></div>';
+            html += '<div class="eligibility-card"><ul class="eligibility-list">' + data.eligibilityCriteria.map(function(e) { return '<li><i class="fas fa-check-circle"></i><span>' + e + '</span></li>'; }).join('') + '</ul></div>';
+            html += '</div></section>';
+
+            html += '<section class="prog-section" id="specializations"><div class="container">';
+            html += '<div class="section-header"><span class="section-badge">Specialisations</span><h2>Top ' + data.fullName + ' Specialisations</h2><p>Choose from industry-relevant specialisations designed for career growth.</p></div>';
+            html += '<div class="spec-grid-full">' + specList + '</div>';
+            html += '</div></section>';
+
+            html += '<section class="prog-section prog-bg" id="syllabus"><div class="container">';
+            html += '<div class="section-header"><span class="section-badge">Curriculum</span><h2>' + data.fullName + ' Syllabus</h2></div>';
+            html += '<div class="syllabus-grid">' + semContent + '</div>';
+            html += '</div></section>';
+
+            html += '<section class="prog-section"><div class="container">';
+            html += '<div class="section-header"><span class="section-badge">Skill Development</span><h2>Skills You Will Acquire</h2></div>';
+            html += '<div class="skills-grid">' + skillsList + '</div>';
+            html += '</div></section>';
+
+            html += '<section class="prog-section prog-bg"><div class="container">';
+            html += '<div class="section-header"><span class="section-badge">Fee Structure</span><h2>' + data.fullName + ' Fees</h2><p>Compare fees across our affiliated universities.</p></div>';
+            html += '<div class="fees-table-wrap"><table class="fees-table"><thead><tr><th>University</th><th>Total Fees (INR)</th></tr></thead><tbody>' + feesRows + '</tbody></table></div>';
+            html += '<p class="fees-note">Note: Fees are indicative and may vary. Contact us for the latest fee structure and EMI options.</p>';
+            html += '</div></section>';
+
+            html += '<section class="prog-section"><div class="container">';
+            html += '<div class="section-header"><span class="section-badge">Affiliated Universities</span><h2>Universities Offering ' + data.fullName + '</h2><p>We are affiliated with India\'s top universities offering this program.</p></div>';
+            html += '<div class="affil-grid">' + uniList + '</div>';
+            html += '</div></section>';
+
+            html += '<section class="prog-section prog-bg"><div class="container">';
+            html += '<div class="section-header"><span class="section-badge">Admission</span><h2>Admission Process</h2></div>';
+            html += '<div class="process-grid">' + data.admissionSteps.map(function(s, i) {
+                return '<div class="process-card"><div class="process-num">' + ('0' + (i + 1)) + '</div><div class="process-icon"><i class="' + s.icon + '"></i></div><h4>' + s.title + '</h4><p>' + s.desc + '</p></div>';
+            }).join('') + '</div>';
+            html += '</div></section>';
+
+            html += '<section class="prog-section"><div class="container">';
+            html += '<div class="section-header"><span class="section-badge">Career Scope</span><h2>Job Roles & Salary After ' + data.fullName + '</h2></div>';
+            html += '<div class="jobs-table-wrap"><table class="jobs-table"><thead><tr><th>Job Role</th><th>Avg. Salary (INR)</th></tr></thead><tbody>' + jobsRows + '</tbody></table></div>';
+            html += '</div></section>';
+
+            html += '<section class="prog-section prog-bg"><div class="container">';
+            html += '<div class="section-header"><span class="section-badge">Top Recruiters</span><h2>Companies Hiring Graduates</h2></div>';
+            html += '<div class="recruiters-grid">' + recruitersList + '</div>';
+            html += '</div></section>';
+
+            html += '<section class="prog-cta"><div class="container"><h2>Ready to Start Your ' + data.fullName + ' Journey?</h2><p>Connect with our education experts and find the perfect university for your goals.</p><a href="/contact" class="btn btn-primary btn-lg">Get Free Counselling <i class="fas fa-arrow-right"></i></a></div></section>';
+
+            html += '<section class="prog-section"><div class="container">';
+            html += '<div class="section-header"><span class="section-badge">FAQs</span><h2>Frequently Asked Questions</h2></div>';
+            html += '<div class="faq-list">' + faqList + '</div>';
+            html += '</div></section>';
+
+            document.getElementById('programContent').innerHTML = html;
+
+            // Init FAQ
+            document.querySelectorAll('.faq-question').forEach(function(question) {
+                question.addEventListener('click', function() {
+                    var item = this.parentElement;
+                    var answer = item.querySelector('.faq-answer');
+                    var isActive = item.classList.contains('active');
+                    document.querySelectorAll('.faq-item').forEach(function(faqItem) {
+                        faqItem.classList.remove('active');
+                        faqItem.querySelector('.faq-answer').style.maxHeight = null;
+                    });
+                    if (!isActive) {
+                        item.classList.add('active');
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                    }
+                });
+            });
+        }).catch(function() {
+            window.location.href = '/programs';
+        });
+    </script>
+</body>
+</html>

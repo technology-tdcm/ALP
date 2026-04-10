@@ -1,0 +1,39 @@
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="container">
+        <h1 data-ch="hero-title">Blog & <span class="text-gradient">Insights</span></h1>
+        <p data-c="hero-desc">Expert articles on career growth, online education, and industry trends.</p>
+    </div>
+</section>
+
+<section class="blog-page">
+    <div class="container">
+        <div class="blog-grid-full" id="blogGrid"></div>
+    </div>
+</section>
+
+<script>
+fetch('/api/blog-posts').then(function(r){return r.json();}).then(function(posts){
+    var grid = document.getElementById('blogGrid');
+    if (!posts.length) { grid.innerHTML = '<p style="text-align:center;color:#6c6c80;grid-column:1/-1;padding:60px 0;">No blog posts yet. Check back soon!</p>'; return; }
+    posts.forEach(function(post) {
+        var card = document.createElement('div');
+        card.className = 'blog-card-full';
+        card.innerHTML = '<div class="blog-card-img"><div class="blog-placeholder"><i class="fas fa-newspaper"></i></div><span class="blog-date"><span>' + new Date(post.created_at).getDate() + '</span> ' + new Date(post.created_at).toLocaleString('default',{month:'short'}) + '</span></div><div class="blog-card-body"><span class="blog-tag">' + (post.category || 'General') + '</span><h4>' + post.title + '</h4><p>' + (post.excerpt || post.content.substring(0, 120)) + '...</p><a href="#" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a></div>';
+        grid.appendChild(card);
+    });
+}).catch(function() { document.getElementById('blogGrid').innerHTML = '<p style="text-align:center;color:#6c6c80;grid-column:1/-1;padding:60px 0;">Blog posts coming soon!</p>'; });
+
+(function() {
+    var pc = window.pageContent || {};
+    document.querySelectorAll('[data-c]').forEach(function(el) {
+        var key = el.getAttribute('data-c');
+        if (pc[key]) el.innerHTML = pc[key];
+    });
+    document.querySelectorAll('[data-ch]').forEach(function(el) {
+        var key = el.getAttribute('data-ch');
+        if (pc[key]) el.innerHTML = pc[key];
+    });
+})();
+</script>

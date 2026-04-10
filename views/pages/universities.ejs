@@ -1,0 +1,37 @@
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="container">
+        <h1 data-ch="hero-title">Our <span class="text-gradient">University Partners</span></h1>
+        <p data-c="hero-desc">We collaborate with India's most reputed universities for world-class online education.</p>
+    </div>
+</section>
+
+<section class="universities-page">
+    <div class="container">
+        <div class="uni-grid-full">
+            <div class="uni-card-full"><div class="uni-card-badge">AU</div><h3>Amity University Online</h3><p>NAAC A+ accredited university offering comprehensive online programs with industry-relevant curriculum.</p><div class="uni-card-tags"><span>MBA</span><span>MCA</span><span>BBA</span><span>BCA</span></div><a href="/enquiry" class="uni-card-link">Explore Programs <i class="fas fa-arrow-right"></i></a></div>
+            <div class="uni-card-full"><div class="uni-card-badge">SU</div><h3>Symbiosis University Online</h3><p>One of India's most prestigious universities with a legacy of academic excellence and innovation.</p><div class="uni-card-tags"><span>MBA</span><span>PGDM</span><span>BBA</span><span>BA</span></div><a href="/enquiry" class="uni-card-link">Explore Programs <i class="fas fa-arrow-right"></i></a></div>
+            <div class="uni-card-full"><div class="uni-card-badge">MU</div><h3>Manipal University Online</h3><p>Renowned for quality education with cutting-edge technology and experienced faculty members.</p><div class="uni-card-tags"><span>MBA</span><span>MCA</span><span>MCom</span><span>BCA</span></div><a href="/enquiry" class="uni-card-link">Explore Programs <i class="fas fa-arrow-right"></i></a></div>
+            <div class="uni-card-full"><div class="uni-card-badge">LPU</div><h3>LPU Online</h3><p>India's largest university offering affordable online degrees with excellent placement support.</p><div class="uni-card-tags"><span>MBA</span><span>MCA</span><span>BBA</span><span>BCom</span></div><a href="/enquiry" class="uni-card-link">Explore Programs <i class="fas fa-arrow-right"></i></a></div>
+            <div class="uni-card-full"><div class="uni-card-badge">JU</div><h3>Jain University Online</h3><p>Known for its innovative teaching methods and strong industry connections in Bangalore.</p><div class="uni-card-tags"><span>MBA</span><span>MCom</span><span>BBA</span><span>BCA</span></div><a href="/enquiry" class="uni-card-link">Explore Programs <i class="fas fa-arrow-right"></i></a></div>
+            <div class="uni-card-full"><div class="uni-card-badge">NM</div><h3>NMIMS University Online</h3><p>Premium business school offering top-ranked online MBA and PGDM programs.</p><div class="uni-card-tags"><span>MBA</span><span>PGDM</span><span>BBA</span></div><a href="/enquiry" class="uni-card-link">Explore Programs <i class="fas fa-arrow-right"></i></a></div>
+            <div class="uni-card-full"><div class="uni-card-badge">DP</div><h3>DY Patil University Online</h3><p>Trusted institution with diverse programs and flexible learning options for working professionals.</p><div class="uni-card-tags"><span>MBA</span><span>MCA</span><span>BBA</span><span>BCA</span></div><a href="/enquiry" class="uni-card-link">Explore Programs <i class="fas fa-arrow-right"></i></a></div>
+            <div class="uni-card-full"><div class="uni-card-badge">OP</div><h3>OP Jindal University Online</h3><p>Global university with world-class faculty and internationally recognised programs.</p><div class="uni-card-tags"><span>MBA</span><span>BBA</span><span>BA</span></div><a href="/enquiry" class="uni-card-link">Explore Programs <i class="fas fa-arrow-right"></i></a></div>
+        </div>
+    </div>
+</section>
+
+<script>
+(function() {
+    var pc = window.pageContent || {};
+    document.querySelectorAll('[data-c]').forEach(function(el) {
+        var key = el.getAttribute('data-c');
+        if (pc[key]) el.innerHTML = pc[key];
+    });
+    document.querySelectorAll('[data-ch]').forEach(function(el) {
+        var key = el.getAttribute('data-ch');
+        if (pc[key]) el.innerHTML = pc[key];
+    });
+})();
+</script>
