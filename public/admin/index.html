@@ -421,7 +421,7 @@
                 var html = '<table><thead><tr><th>Name</th><th>Level</th><th>Duration</th><th>Fees</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
                 if (!data.length) html += '<tr><td colspan="6" style="text-align:center;padding:32px;color:#8e8ea0;">No programs</td></tr>';
                 data.forEach(function(p) {
-                    html += '<tr><td>' + p.name + '</td><td>' + p.level.toUpperCase() + '</td><td>' + (p.duration || '-') + '</td><td>' + (p.fees || '-') + '</td><td><span class="badge badge-' + p.status + '">' + p.status + '</span></td><td><div class="actions"><button class="btn btn-outline btn-sm" onclick="editProgram(' + p.id + ')">Edit</button><button class="btn btn-danger btn-sm" onclick="deleteProgram(' + p.id + ')">Delete</button></div></td></tr>';
+                    html += '<tr><td>' + p.name + '</td><td>' + p.level.toUpperCase() + '</td><td>' + (p.duration || '-') + '</td><td>' + (p.fees || '-') + '</td><td><span class="badge badge-' + p.status + '">' + p.status + '</span></td><td><div class="actions"><button class="btn btn-outline btn-sm" onclick="editProgram(\'' + p.id + '\')">Edit</button><button class="btn btn-danger btn-sm" onclick="deleteProgram(\'' + p.id + '\')">Delete</button></div></td></tr>';
                 });
                 html += '</tbody></table>';
                 document.getElementById('programsTable').innerHTML = html;
@@ -480,7 +480,7 @@
                 var html = '<table><thead><tr><th>Name</th><th>Badge</th><th>Programs</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
                 if (!data.length) html += '<tr><td colspan="5" style="text-align:center;padding:32px;color:#8e8ea0;">No universities</td></tr>';
                 data.forEach(function(u) {
-                    html += '<tr><td>' + u.name + '</td><td>' + (u.badge || '-') + '</td><td>' + (u.programs || '-') + '</td><td><span class="badge badge-' + u.status + '">' + u.status + '</span></td><td><div class="actions"><button class="btn btn-outline btn-sm" onclick="editUniversity(' + u.id + ')">Edit</button><button class="btn btn-danger btn-sm" onclick="deleteUniversity(' + u.id + ')">Delete</button></div></td></tr>';
+                    html += '<tr><td>' + u.name + '</td><td>' + (u.badge || '-') + '</td><td>' + (u.programs || '-') + '</td><td><span class="badge badge-' + u.status + '">' + u.status + '</span></td><td><div class="actions"><button class="btn btn-outline btn-sm" onclick="editUniversity(\'' + u.id + '\')">Edit</button><button class="btn btn-danger btn-sm" onclick="deleteUniversity(\'' + u.id + '\')">Delete</button></div></td></tr>';
                 });
                 html += '</tbody></table>';
                 document.getElementById('universitiesTable').innerHTML = html;
@@ -533,7 +533,7 @@
                 var html = '<table><thead><tr><th>Title</th><th>Category</th><th>Author</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead><tbody>';
                 if (!data.length) html += '<tr><td colspan="6" style="text-align:center;padding:32px;color:#8e8ea0;">No blog posts</td></tr>';
                 data.forEach(function(p) {
-                    html += '<tr><td>' + p.title + '</td><td>' + p.category + '</td><td>' + p.author + '</td><td><span class="badge badge-' + p.status + '">' + p.status + '</span></td><td>' + new Date(p.created_at).toLocaleDateString() + '</td><td><div class="actions"><button class="btn btn-outline btn-sm" onclick="editBlogPost(' + p.id + ')">Edit</button><button class="btn btn-danger btn-sm" onclick="deleteBlogPost(' + p.id + ')">Delete</button></div></td></tr>';
+                    html += '<tr><td>' + p.title + '</td><td>' + p.category + '</td><td>' + p.author + '</td><td><span class="badge badge-' + p.status + '">' + p.status + '</span></td><td>' + new Date(p.created_at).toLocaleDateString() + '</td><td><div class="actions"><button class="btn btn-outline btn-sm" onclick="editBlogPost(\'' + p.id + '\')">Edit</button><button class="btn btn-danger btn-sm" onclick="deleteBlogPost(\'' + p.id + '\')">Delete</button></div></td></tr>';
                 });
                 html += '</tbody></table>';
                 document.getElementById('blogTable').innerHTML = html;
