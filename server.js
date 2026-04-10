@@ -221,22 +221,91 @@ app.delete('/api/admin/blog-posts/:id', authMiddleware, async (req, res) => {
     res.json({ success: true });
 });
 
+// Helper function to map program schema
+function mapProgram(p) {
+    if (!p) return p;
+    return {
+        id: p.id,
+        name: p.name,
+        slug: p.slug || p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+        level: p.level || (p.degree_level?.toLowerCase() === 'undergraduate' ? 'ug' : 'pg'),
+        duration: p.duration || '',
+        fees: p.fees || (p.tuition_fee ? (p.tuition_fee / 100000).toFixed(1) + 'L' : ''),
+        eligibility: p.eligibility || '',
+        description: p.description || '',
+        icon: p.icon || 'fas fa-graduation-cap',
+        status: p.status || 'active'
+    };
+}
+
+// Helper function to map university schema
+function mapUniversity(u) {
+    if (!u) return u;
+    return {
+        id: u.id,
+        name: u.name,
+        slug: u.slug || u.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+        badge: u.badge || u.name.split(' ').map(w => w[0]).join('').substring(0, 3).toUpperCase(),
+        description: u.description || '',
+        programs: u.programs || '',
+        logo_url: u.logo_url || '',
+        status: u.status || 'active'
+    };
+}
+
 app.get('/api/admin/programs', authMiddleware, async (req, res) => {
     const { data } = await supabase.from('programs').select('*').order('name');
-    res.json(data || []);
+    res.json((data || []).map(mapProgram));
 });
 
 app.post('/api/admin/programs', authMiddleware, async (req, res) => {
     const { name, slug, level, duration, fees, eligibility, description, icon, status } = req.body;
     if (!name || !slug || !level) return res.status(400).json({ error: 'Name, slug, and level are required' });
-    const { data, error } = await supabase.from('programs').insert([{ name, slug, level, duration: duration || '', fees: fees || '', eligibility: eligibility || '', description: description || '', icon: icon || 'fas fa-graduation-cap', status: status || 'active' }]).select('id').single();
+    
+    // Check if we are using the new schema or old schema
+    const { data: cols } = await supabase.from('programs').select('status').limit(1).catch(() => ({ data: null }));
+    
+    let insertData;
+    if (cols) {
+        // New schema
+        insertData = { name, slug, level, duration: duration || '', fees: fees || '', eligibility: eligibility || '', description: description || '', icon: icon || 'fas fa-graduation-cap', status: status || 'active' };
+    } else {
+        // Old schema mapping
+        insertData = {
+            name,
+            degree_level: level === 'ug' ? 'Undergraduate' : 'Postgraduate',
+            duration: duration || '',
+            tuition_fee: fees ? parseInt(fees.replace(/[^0-9]/g, '')) * 100000 : 0,
+            eligibility: eligibility || '',
+            description: description || ''
+        };
+    }
+    
+    const { data, error } = await supabase.from('programs').insert([insertData]).select('id').single();
     if (error) return res.status(500).json({ error: error.message });
     res.json({ success: true, id: data.id });
 });
 
 app.put('/api/admin/programs/:id', authMiddleware, async (req, res) => {
     const { name, slug, level, duration, fees, eligibility, description, icon, status } = req.body;
-    const { error } = await supabase.from('programs').update({ name, slug, level, duration, fees, eligibility, description, icon, status }).eq('id', req.params.id);
+    
+    const { data: cols } = await supabase.from('programs').select('status').limit(1).catch(() => ({ data: null }));
+    
+    let updateData;
+    if (cols) {
+        updateData = { name, slug, level, duration, fees, eligibility, description, icon, status };
+    } else {
+        updateData = {
+            name,
+            degree_level: level === 'ug' ? 'Undergraduate' : 'Postgraduate',
+            duration,
+            tuition_fee: fees ? parseInt(fees.replace(/[^0-9]/g, '')) * 100000 : 0,
+            eligibility,
+            description
+        };
+    }
+    
+    const { error } = await supabase.from('programs').update(updateData).eq('id', req.params.id);
     if (error) return res.status(500).json({ error: error.message });
     res.json({ success: true });
 });
@@ -249,7 +318,7 @@ app.delete('/api/admin/programs/:id', authMiddleware, async (req, res) => {
 
 app.get('/api/admin/universities', authMiddleware, async (req, res) => {
     const { data } = await supabase.from('universities').select('*').order('name');
-    res.json(data || []);
+    res.json((data || []).map(mapUniversity));
 });
 
 app.post('/api/admin/universities', authMiddleware, async (req, res) => {
