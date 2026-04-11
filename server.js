@@ -311,27 +311,86 @@ app.put('/api/admin/programs/:id', authMiddleware, async (req, res) => {
 });
 
 app.get('/api/admin/programs/:id/details', authMiddleware, async (req, res) => {
-    const { data, error } = await supabase.from('programs').select('details').eq('id', req.params.id).single();
-    if (error) {
-        if (error.message.includes('column "details"')) {
-            return res.json({ details: {} });
+    try {
+        const id = req.params.id;
+        const [
+            { data: details },
+            { data: features },
+            { data: syllabus },
+            { data: jobs },
+            { data: faqs },
+            { data: listItems }
+        ] = await Promise.all([
+            supabase.from('program_details').select('*').eq('program_id', id).single(),
+            supabase.from('program_features').select('*').eq('program_id', id).order('sort_order'),
+            supabase.from('program_syllabus').select('*').eq('program_id', id).order('sort_order'),
+            supabase.from('program_jobs').select('*').eq('program_id', id).order('sort_order'),
+            supabase.from('program_faqs').select('*').eq('program_id', id).order('sort_order'),
+            supabase.from('program_list_items').select('*').eq('program_id', id).order('sort_order')
+        ]);
+
+        if (!details) {
+            return res.json({ 
+                details: {}, features: [], syllabus: [], jobs: [], faqs: [], listItems: [] 
+            });
         }
-        return res.status(500).json({ error: error.message });
+
+        res.json({
+            details: details || {},
+            features: features || [],
+            syllabus: syllabus || [],
+            jobs: jobs || [],
+            faqs: faqs || [],
+            listItems: listItems || []
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-    res.json({ details: data?.details || {} });
 });
 
 app.put('/api/admin/programs/:id/details', authMiddleware, async (req, res) => {
-    const { details } = req.body;
-    if (!details) return res.status(400).json({ error: 'Details object is required' });
-    const { error } = await supabase.from('programs').update({ details }).eq('id', req.params.id);
-    if (error) {
-        if (error.message.includes('column "details"')) {
-            return res.status(400).json({ error: 'The details column has not been created in the Supabase database yet. Please run the SQL migration.' });
+    try {
+        const id = req.params.id;
+        const { details, features, syllabus, jobs, faqs, listItems } = req.body;
+
+        // 1. Update/Upsert main details
+        if (details) {
+            await supabase.from('program_details').upsert({
+                program_id: id,
+                ...details
+            });
         }
-        return res.status(500).json({ error: error.message });
+
+        // 2. Replace related tables entirely to handle additions/deletions easily
+        if (features) {
+            await supabase.from('program_features').delete().eq('program_id', id);
+            if (features.length) await supabase.from('program_features').insert(features.map((x, i) => ({ ...x, program_id: id, sort_order: i })));
+        }
+
+        if (syllabus) {
+            await supabase.from('program_syllabus').delete().eq('program_id', id);
+            if (syllabus.length) await supabase.from('program_syllabus').insert(syllabus.map((x, i) => ({ ...x, program_id: id, sort_order: i })));
+        }
+
+        if (jobs) {
+            await supabase.from('program_jobs').delete().eq('program_id', id);
+            if (jobs.length) await supabase.from('program_jobs').insert(jobs.map((x, i) => ({ ...x, program_id: id, sort_order: i })));
+        }
+
+        if (faqs) {
+            await supabase.from('program_faqs').delete().eq('program_id', id);
+            if (faqs.length) await supabase.from('program_faqs').insert(faqs.map((x, i) => ({ ...x, program_id: id, sort_order: i })));
+        }
+
+        if (listItems) {
+            await supabase.from('program_list_items').delete().eq('program_id', id);
+            if (listItems.length) await supabase.from('program_list_items').insert(listItems.map((x, i) => ({ ...x, program_id: id, sort_order: i })));
+        }
+
+        res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-    res.json({ success: true });
 });
 
 app.delete('/api/admin/programs/:id', authMiddleware, async (req, res) => {

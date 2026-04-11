@@ -35,18 +35,38 @@ function copyDir(src, dest) {
 }
 
 // Map existing Supabase schema to what templates expect
-function mapProgram(p) {
+// Replace the existing mapProgram to handle relations
+async function mapProgram(p) {
     const slug = p.slug || p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
     
-    // Check if we have dynamic details from Supabase or fallback to program-data.js for now
-    let details = p.details;
-    if (!details || Object.keys(details).length === 0) {
-        // Fallback for build process if details column empty or doesn't exist
+    // Fetch relational data
+    const [
+        { data: details },
+        { data: features },
+        { data: syllabus },
+        { data: jobs },
+        { data: faqs },
+        { data: listItems }
+    ] = await Promise.all([
+        supabase.from('program_details').select('*').eq('program_id', p.id).single(),
+        supabase.from('program_features').select('*').eq('program_id', p.id).order('sort_order'),
+        supabase.from('program_syllabus').select('*').eq('program_id', p.id).order('sort_order'),
+        supabase.from('program_jobs').select('*').eq('program_id', p.id).order('sort_order'),
+        supabase.from('program_faqs').select('*').eq('program_id', p.id).order('sort_order'),
+        supabase.from('program_list_items').select('*').eq('program_id', p.id).order('sort_order')
+    ]);
+
+    // Format relational data into template-friendly JSON
+    const feats = features || [];
+    const lists = listItems || [];
+    
+    let fallback = {};
+    if (!details) {
         try {
             const programData = require('./program-data.js');
-            details = programData[slug] || Object.values(programData).find(x => slug.includes(x.slug)) || {};
+            fallback = programData[slug] || Object.values(programData).find(x => slug.includes(x.slug)) || {};
         } catch (e) {
-            details = {};
+            fallback = {};
         }
     }
     
@@ -67,30 +87,28 @@ function mapProgram(p) {
         icon: p.icon || 'fas fa-graduation-cap',
         status: p.status || 'active',
         
-        // Detailed page content (with fallbacks if empty)
-        fullName: details.fullName || nameStr,
-        heroTitle: details.heroTitle || `Advance Your Career with an ${nameStr}`,
-        heroDesc: details.heroDesc || p.description || `Explore our flexible ${nameStr} program tailored for you.`,
-        feesRange: details.feesRange || feesStr,
-        about: details.about || p.description || `The ${nameStr} program is designed to provide you with the best industry skills.`,
-        benefits: details.benefits || [],
-        whoShould: details.whoShould || [],
-        eligibilityCriteria: details.eligibilityCriteria || [eligibilityStr],
-        specializations: details.specializations || [],
-        syllabus: details.syllabus || [],
-        skills: details.skills || [],
-        universities: details.universities || [],
-        admissionSteps: details.admissionSteps || [
-            { title: 'Online Registration', desc: 'Fill the application form.', icon: 'fas fa-file-signature' },
-            { title: 'Upload Documents', desc: 'Submit required documents.', icon: 'fas fa-cloud-upload-alt' },
-            { title: 'Pay Fee', desc: 'Complete payment process.', icon: 'fas fa-credit-card' },
-            { title: 'Get Confirmation', desc: 'Receive admission confirmation.', icon: 'fas fa-check-circle' }
-        ],
-        jobs: details.jobs || [],
-        recruiters: details.recruiters || ['Top Industry Partners'],
-        faqs: details.faqs || [
-            { q: `Is the ${nameStr} valid?`, a: `Yes, it is fully accredited and recognised by UGC/AICTE.` }
-        ]
+        // Detailed page content (using relational data, falling back to old data if missing)
+        fullName: details?.full_name || fallback.fullName || nameStr,
+        heroTitle: details?.hero_title || fallback.heroTitle || `Advance Your Career with an ${nameStr}`,
+        heroDesc: details?.hero_desc || fallback.heroDesc || p.description || `Explore our flexible ${nameStr} program.`,
+        feesRange: details?.fees_range || fallback.feesRange || feesStr,
+        about: details?.about || fallback.about || p.description,
+        
+        benefits: details ? feats.filter(f => f.type === 'benefit').map(f => ({ title: f.title, desc: f.description, icon: f.icon })) : (fallback.benefits || []),
+        whoShould: details ? feats.filter(f => f.type === 'who_should').map(f => ({ title: f.title, desc: f.description })) : (fallback.whoShould || []),
+        specializations: details ? feats.filter(f => f.type === 'specialization').map(f => ({ name: f.title, desc: f.description, icon: f.icon })) : (fallback.specializations || []),
+        admissionSteps: details ? feats.filter(f => f.type === 'admission_step').map(f => ({ title: f.title, desc: f.description, icon: f.icon })) : (fallback.admissionSteps || []),
+        
+        syllabus: details ? (syllabus || []).map(s => ({ semester: s.semester, title: s.title, subjects: s.subjects.split(',').map(sub => sub.trim()) })) : (fallback.syllabus || []),
+        
+        jobs: details ? (jobs || []).map(j => ({ role: j.role, salary: j.salary })) : (fallback.jobs || []),
+        faqs: details ? (faqs || []).map(f => ({ q: f.question, a: f.answer })) : (fallback.faqs || []),
+        
+        skills: details ? lists.filter(l => l.type === 'skill').map(l => l.content) : (fallback.skills || []),
+        recruiters: details ? lists.filter(l => l.type === 'recruiter').map(l => l.content) : (fallback.recruiters || []),
+        eligibilityCriteria: details ? lists.filter(l => l.type === 'eligibility').map(l => l.content) : (fallback.eligibilityCriteria || [eligibilityStr]),
+        
+        universities: fallback.universities || [] // Universities mapping is complex, keeping fallback for now
     };
 }
 
@@ -120,7 +138,7 @@ async function build() {
         supabase.from('blog_posts').select('*').eq('status', 'published').order('created_at', { ascending: false })
     ]);
 
-    const programs = (rawPrograms || []).map(mapProgram);
+    const programs = await Promise.all((rawPrograms || []).map(mapProgram));
     const universities = (rawUnis || []).map(mapUniversity);
     console.log(`   ✓ ${programs.length} programs, ${universities.length} universities, ${blogPosts?.length || 0} blog posts`);
 
