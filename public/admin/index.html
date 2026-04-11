@@ -242,6 +242,26 @@
         </div>
     </div>
 
+    <!-- Program Details Modal -->
+    <div class="modal-overlay" id="programDetailsModal">
+        <div class="modal" style="max-width: 800px; width: 90%;">
+            <div class="modal-header"><h3>Edit Detailed Page Content</h3><button class="modal-close" onclick="closeModal('programDetailsModal')">&times;</button></div>
+            <div class="modal-body">
+                <p style="margin-bottom: 15px; font-size: 14px; color: var(--gray-600);">
+                    Edit the JSON configuration for this program's detail page. This controls the Syllabus, FAQs, Admission Steps, Jobs, and Specializations.
+                </p>
+                <input type="hidden" id="progDetailsId">
+                <div class="form-group">
+                    <textarea id="progDetailsContent" rows="25" style="width: 100%; font-family: monospace; font-size: 13px; padding: 15px; background: #f8f9fa; border: 1px solid #ddd; border-radius: 4px;" required></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('programDetailsModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveProgramDetails()">Save Content</button>
+            </div>
+        </div>
+    </div>
+
     <!-- University Modal -->
     <div class="modal-overlay" id="universityModal">
         <div class="modal">
@@ -421,7 +441,7 @@
                 var html = '<table><thead><tr><th>Name</th><th>Level</th><th>Duration</th><th>Fees</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
                 if (!data.length) html += '<tr><td colspan="6" style="text-align:center;padding:32px;color:#8e8ea0;">No programs</td></tr>';
                 data.forEach(function(p) {
-                    html += '<tr><td>' + p.name + '</td><td>' + p.level.toUpperCase() + '</td><td>' + (p.duration || '-') + '</td><td>' + (p.fees || '-') + '</td><td><span class="badge badge-' + p.status + '">' + p.status + '</span></td><td><div class="actions"><button class="btn btn-outline btn-sm" onclick="editProgram(\'' + p.id + '\')">Edit</button><button class="btn btn-danger btn-sm" onclick="deleteProgram(\'' + p.id + '\')">Delete</button></div></td></tr>';
+                    html += '<tr><td>' + p.name + '</td><td>' + p.level.toUpperCase() + '</td><td>' + (p.duration || '-') + '</td><td>' + (p.fees || '-') + '</td><td><span class="badge badge-' + p.status + '">' + p.status + '</span></td><td><div class="actions"><button class="btn btn-outline btn-sm" onclick="editProgram(\'' + p.id + '\')">Edit Basic</button><button class="btn btn-outline btn-sm" onclick="editProgramDetails(\'' + p.id + '\')">Edit Page Content</button><button class="btn btn-danger btn-sm" onclick="deleteProgram(\'' + p.id + '\')">Delete</button></div></td></tr>';
                 });
                 html += '</tbody></table>';
                 document.getElementById('programsTable').innerHTML = html;
@@ -468,6 +488,27 @@
             var url = id ? '/programs/' + id : '/programs';
             var method = id ? 'PUT' : 'POST';
             api(url, { method: method, body: JSON.stringify(body) }).then(function() { closeModal('programModal'); loadPrograms(); });
+        }
+
+        function editProgramDetails(id) {
+            api('/programs/' + id + '/details').then(function(data) {
+                document.getElementById('progDetailsId').value = id;
+                document.getElementById('progDetailsContent').value = JSON.stringify(data.details || {}, null, 4);
+                openModal('programDetailsModal');
+            });
+        }
+
+        function saveProgramDetails() {
+            var id = document.getElementById('progDetailsId').value;
+            try {
+                var details = JSON.parse(document.getElementById('progDetailsContent').value);
+                api('/programs/' + id + '/details', { method: 'PUT', body: JSON.stringify({ details: details }) }).then(function() { 
+                    closeModal('programDetailsModal'); 
+                    alert('Program page content updated successfully! Remember to rebuild the static site.');
+                });
+            } catch (e) {
+                alert('Invalid JSON format. Please ensure the content is valid JSON.\nError: ' + e.message);
+            }
         }
 
         function deleteProgram(id) {

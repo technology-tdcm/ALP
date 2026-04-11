@@ -36,17 +36,61 @@ function copyDir(src, dest) {
 
 // Map existing Supabase schema to what templates expect
 function mapProgram(p) {
+    const slug = p.slug || p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    
+    // Check if we have dynamic details from Supabase or fallback to program-data.js for now
+    let details = p.details;
+    if (!details || Object.keys(details).length === 0) {
+        // Fallback for build process if details column empty or doesn't exist
+        try {
+            const programData = require('./program-data.js');
+            details = programData[slug] || Object.values(programData).find(x => slug.includes(x.slug)) || {};
+        } catch (e) {
+            details = {};
+        }
+    }
+    
+    const feesStr = p.fees || (p.tuition_fee ? (p.tuition_fee / 100000).toFixed(1) + 'L' : '');
+    const durationStr = p.duration || '';
+    const eligibilityStr = p.eligibility || '';
+    const nameStr = p.name;
+
     return {
         id: p.id,
-        name: p.name,
-        slug: p.slug || p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
-        level: p.level || p.degree_level || 'ug',
-        duration: p.duration || '',
-        fees: p.fees || (p.tuition_fee ? (p.tuition_fee / 100000).toFixed(1) + 'L' : ''),
-        eligibility: p.eligibility || '',
+        name: nameStr,
+        slug: slug,
+        level: p.level || (p.degree_level?.toLowerCase() === 'undergraduate' ? 'ug' : 'pg'),
+        duration: durationStr,
+        fees: feesStr,
+        eligibility: eligibilityStr,
         description: p.description || '',
         icon: p.icon || 'fas fa-graduation-cap',
-        status: p.status || 'active'
+        status: p.status || 'active',
+        
+        // Detailed page content (with fallbacks if empty)
+        fullName: details.fullName || nameStr,
+        heroTitle: details.heroTitle || `Advance Your Career with an ${nameStr}`,
+        heroDesc: details.heroDesc || p.description || `Explore our flexible ${nameStr} program tailored for you.`,
+        feesRange: details.feesRange || feesStr,
+        about: details.about || p.description || `The ${nameStr} program is designed to provide you with the best industry skills.`,
+        benefits: details.benefits || [],
+        whoShould: details.whoShould || [],
+        eligibilityCriteria: details.eligibilityCriteria || [eligibilityStr],
+        specializations: details.specializations || [],
+        syllabus: details.syllabus || [],
+        skills: details.skills || [],
+        universities: details.universities || [],
+        admissionSteps: details.admissionSteps || [
+            { title: 'Online Registration', desc: 'Fill the application form.', icon: 'fas fa-file-signature' },
+            { title: 'Upload Documents', desc: 'Submit required documents.', icon: 'fas fa-cloud-upload-alt' },
+            { title: 'Pay Fee', desc: 'Complete payment process.', icon: 'fas fa-credit-card' },
+            { title: 'Get Confirmation', desc: 'Receive admission confirmation.', icon: 'fas fa-check-circle' }
+        ],
+        jobs: details.jobs || [],
+        recruiters: details.recruiters || ['Top Industry Partners'],
+        faqs: details.faqs || [
+            { q: `Is the ${nameStr} valid?`, a: `Yes, it is fully accredited and recognised by UGC/AICTE.` }
+        ]
     };
 }
 

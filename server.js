@@ -310,6 +310,30 @@ app.put('/api/admin/programs/:id', authMiddleware, async (req, res) => {
     res.json({ success: true });
 });
 
+app.get('/api/admin/programs/:id/details', authMiddleware, async (req, res) => {
+    const { data, error } = await supabase.from('programs').select('details').eq('id', req.params.id).single();
+    if (error) {
+        if (error.message.includes('column "details"')) {
+            return res.json({ details: {} });
+        }
+        return res.status(500).json({ error: error.message });
+    }
+    res.json({ details: data?.details || {} });
+});
+
+app.put('/api/admin/programs/:id/details', authMiddleware, async (req, res) => {
+    const { details } = req.body;
+    if (!details) return res.status(400).json({ error: 'Details object is required' });
+    const { error } = await supabase.from('programs').update({ details }).eq('id', req.params.id);
+    if (error) {
+        if (error.message.includes('column "details"')) {
+            return res.status(400).json({ error: 'The details column has not been created in the Supabase database yet. Please run the SQL migration.' });
+        }
+        return res.status(500).json({ error: error.message });
+    }
+    res.json({ success: true });
+});
+
 app.delete('/api/admin/programs/:id', authMiddleware, async (req, res) => {
     const { error } = await supabase.from('programs').delete().eq('id', req.params.id);
     if (error) return res.status(500).json({ error: error.message });
