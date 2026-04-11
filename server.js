@@ -321,7 +321,7 @@ app.get('/api/admin/programs/:id/details', authMiddleware, async (req, res) => {
             { data: faqs },
             { data: listItems }
         ] = await Promise.all([
-            supabase.from('program_details').select('*').eq('program_id', id).single(),
+            supabase.from('program_details').select('*').eq('program_id', id).limit(1),
             supabase.from('program_features').select('*').eq('program_id', id).order('sort_order'),
             supabase.from('program_syllabus').select('*').eq('program_id', id).order('sort_order'),
             supabase.from('program_jobs').select('*').eq('program_id', id).order('sort_order'),
@@ -329,14 +329,8 @@ app.get('/api/admin/programs/:id/details', authMiddleware, async (req, res) => {
             supabase.from('program_list_items').select('*').eq('program_id', id).order('sort_order')
         ]);
 
-        if (!details) {
-            return res.json({ 
-                details: {}, features: [], syllabus: [], jobs: [], faqs: [], listItems: [] 
-            });
-        }
-
         res.json({
-            details: details || {},
+            details: (details && details.length > 0) ? details[0] : {},
             features: features || [],
             syllabus: syllabus || [],
             jobs: jobs || [],
