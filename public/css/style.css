@@ -1580,9 +1580,9 @@ ul {
 }
 
 .footer-logo {
-    height: 40px;
-    margin-bottom: 16px;
-    filter: brightness(0) invert(1);
+    height: 60px;
+    margin-bottom: 24px;
+    border-radius: 4px;
 }
 
 .footer-about p {
