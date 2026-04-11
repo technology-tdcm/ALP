@@ -244,18 +244,111 @@
 
     <!-- Program Details Modal -->
     <div class="modal-overlay" id="programDetailsModal">
-        <div class="modal" style="max-width: 800px; width: 90%;">
-            <div class="modal-header"><h3>Edit Detailed Page Content</h3><button class="modal-close" onclick="closeModal('programDetailsModal')">&times;</button></div>
-            <div class="modal-body">
-                <p style="margin-bottom: 15px; font-size: 14px; color: var(--gray-600);">
-                    Edit the JSON configuration for this program's detail page. This controls the Syllabus, FAQs, Admission Steps, Jobs, and Specializations.
-                </p>
+        <div class="modal" style="max-width: 900px; width: 95%; max-height: 90vh; display: flex; flex-direction: column;">
+            <div class="modal-header">
+                <h3>Edit Detailed Page Content</h3>
+                <button class="modal-close" onclick="closeModal('programDetailsModal')">&times;</button>
+            </div>
+            
+            <div class="modal-body" style="overflow-y: auto; flex: 1; padding: 0;">
                 <input type="hidden" id="progDetailsId">
-                <div class="form-group">
-                    <textarea id="progDetailsContent" rows="25" style="width: 100%; font-family: monospace; font-size: 13px; padding: 15px; background: #f8f9fa; border: 1px solid #ddd; border-radius: 4px;" required></textarea>
+                
+                <div class="tabs" style="display: flex; background: var(--gray-50); border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 10;">
+                    <button class="tab-btn active" onclick="switchTab('tab-hero')">Hero & About</button>
+                    <button class="tab-btn" onclick="switchTab('tab-features')">Features</button>
+                    <button class="tab-btn" onclick="switchTab('tab-syllabus')">Syllabus</button>
+                    <button class="tab-btn" onclick="switchTab('tab-jobs')">Jobs & Salary</button>
+                    <button class="tab-btn" onclick="switchTab('tab-faqs')">FAQs</button>
+                    <button class="tab-btn" onclick="switchTab('tab-lists')">Lists</button>
+                </div>
+
+                <div class="tab-content" style="padding: 20px;">
+                    <!-- Hero & About -->
+                    <div id="tab-hero" class="tab-pane active">
+                        <div class="form-row">
+                            <div class="form-group"><label>Full Name</label><input type="text" id="pd_full_name"></div>
+                            <div class="form-group"><label>Fees Range</label><input type="text" id="pd_fees_range"></div>
+                        </div>
+                        <div class="form-group"><label>Hero Title</label><input type="text" id="pd_hero_title"></div>
+                        <div class="form-group"><label>Hero Description</label><textarea id="pd_hero_desc" rows="3"></textarea></div>
+                        <div class="form-group"><label>About Overview</label><textarea id="pd_about" rows="4"></textarea></div>
+                    </div>
+
+                    <!-- Features -->
+                    <div id="tab-features" class="tab-pane" style="display: none;">
+                        <div class="feature-section">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <h4>Benefits</h4>
+                                <button class="btn btn-sm btn-outline" onclick="addFeatureRow('benefit')">+ Add Benefit</button>
+                            </div>
+                            <div id="list_benefit" class="dynamic-list"></div>
+                        </div>
+                        <hr style="margin: 20px 0; border: none; border-top: 1px solid var(--gray-200);">
+                        <div class="feature-section">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <h4>Who Should Pursue</h4>
+                                <button class="btn btn-sm btn-outline" onclick="addFeatureRow('who_should')">+ Add Profile</button>
+                            </div>
+                            <div id="list_who_should" class="dynamic-list"></div>
+                        </div>
+                        <hr style="margin: 20px 0; border: none; border-top: 1px solid var(--gray-200);">
+                        <div class="feature-section">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <h4>Specialisations</h4>
+                                <button class="btn btn-sm btn-outline" onclick="addFeatureRow('specialization')">+ Add Specialisation</button>
+                            </div>
+                            <div id="list_specialization" class="dynamic-list"></div>
+                        </div>
+                    </div>
+
+                    <!-- Syllabus -->
+                    <div id="tab-syllabus" class="tab-pane" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <h4>Course Curriculum</h4>
+                            <button class="btn btn-sm btn-outline" onclick="addSyllabusRow()">+ Add Semester</button>
+                        </div>
+                        <div id="list_syllabus" class="dynamic-list"></div>
+                    </div>
+
+                    <!-- Jobs -->
+                    <div id="tab-jobs" class="tab-pane" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <h4>Jobs & Salaries</h4>
+                            <button class="btn btn-sm btn-outline" onclick="addJobRow()">+ Add Job Role</button>
+                        </div>
+                        <div id="list_jobs" class="dynamic-list"></div>
+                    </div>
+
+                    <!-- FAQs -->
+                    <div id="tab-faqs" class="tab-pane" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <h4>Frequently Asked Questions</h4>
+                            <button class="btn btn-sm btn-outline" onclick="addFaqRow()">+ Add FAQ</button>
+                        </div>
+                        <div id="list_faqs" class="dynamic-list"></div>
+                    </div>
+
+                    <!-- Lists -->
+                    <div id="tab-lists" class="tab-pane" style="display: none;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <h4>Skills (comma separated)</h4>
+                                <textarea id="pd_skills" rows="4"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <h4>Recruiters (comma separated)</h4>
+                                <textarea id="pd_recruiters" rows="4"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h4>Eligibility Criteria (one per line)</h4>
+                            <textarea id="pd_eligibility" rows="5"></textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer">
+            
+            <div class="modal-footer" style="background: var(--white); border-top: 1px solid var(--gray-200); padding: 15px 20px;">
                 <button class="btn btn-outline" onclick="closeModal('programDetailsModal')">Cancel</button>
                 <button class="btn btn-primary" onclick="saveProgramDetails()">Save Content</button>
             </div>
@@ -493,22 +586,135 @@
         function editProgramDetails(id) {
             api('/programs/' + id + '/details').then(function(data) {
                 document.getElementById('progDetailsId').value = id;
-                document.getElementById('progDetailsContent').value = JSON.stringify(data.details || {}, null, 4);
+                
+                // Details
+                document.getElementById('pd_full_name').value = data.details.full_name || '';
+                document.getElementById('pd_fees_range').value = data.details.fees_range || '';
+                document.getElementById('pd_hero_title').value = data.details.hero_title || '';
+                document.getElementById('pd_hero_desc').value = data.details.hero_desc || '';
+                document.getElementById('pd_about').value = data.details.about || '';
+
+                // List items (skills, recruiters, eligibility)
+                const lists = data.listItems || [];
+                document.getElementById('pd_skills').value = lists.filter(l => l.type === 'skill').map(l => l.content).join(', ');
+                document.getElementById('pd_recruiters').value = lists.filter(l => l.type === 'recruiter').map(l => l.content).join(', ');
+                document.getElementById('pd_eligibility').value = lists.filter(l => l.type === 'eligibility').map(l => l.content).join('\n');
+
+                // Clear lists
+                ['benefit', 'who_should', 'specialization'].forEach(t => document.getElementById('list_'+t).innerHTML = '');
+                document.getElementById('list_syllabus').innerHTML = '';
+                document.getElementById('list_jobs').innerHTML = '';
+                document.getElementById('list_faqs').innerHTML = '';
+
+                // Populate Features
+                (data.features || []).forEach(f => addFeatureRow(f.type, f.title, f.description, f.icon));
+                // Populate Syllabus
+                (data.syllabus || []).forEach(s => addSyllabusRow(s.semester, s.title, s.subjects));
+                // Populate Jobs
+                (data.jobs || []).forEach(j => addJobRow(j.role, j.salary));
+                // Populate FAQs
+                (data.faqs || []).forEach(f => addFaqRow(f.question, f.answer));
+
+                switchTab('tab-hero');
                 openModal('programDetailsModal');
             });
         }
 
+        // --- Dynamic Form Helpers ---
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(p => p.style.display = 'none');
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabId).style.display = 'block';
+        }
+
+        function createRowHtml(inputsHtml) {
+            return '<div style="display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; background:var(--gray-50); padding:10px; border-radius:4px; border:1px solid var(--gray-200);">' + 
+                   inputsHtml + 
+                   '<button type="button" class="btn btn-sm btn-danger" style="padding:6px 10px;" onclick="this.parentElement.remove()">X</button></div>';
+        }
+
+        function addFeatureRow(type, title='', desc='', icon='') {
+            const hasIcon = type !== 'who_should';
+            let html = '<div style="flex:1"><input type="text" class="f-title" placeholder="Title" value="'+escapeHtml(title)+'" style="margin-bottom:8px;"><textarea class="f-desc" placeholder="Description" rows="2">'+escapeHtml(desc)+'</textarea></div>';
+            if (hasIcon) html = '<input type="text" class="f-icon" placeholder="Icon class" value="'+escapeHtml(icon)+'" style="width:150px;">' + html;
+            document.getElementById('list_'+type).insertAdjacentHTML('beforeend', createRowHtml(html));
+        }
+
+        function addSyllabusRow(sem='', title='', subjects='') {
+            const html = '<div style="flex:1"><div style="display:flex; gap:10px; margin-bottom:8px;"><input type="text" class="s-sem" placeholder="Semester (e.g. Semester 1)" value="'+escapeHtml(sem)+'" style="width:150px;"><input type="text" class="s-title" placeholder="Title" value="'+escapeHtml(title)+'"></div><textarea class="s-subj" placeholder="Subjects (comma separated)" rows="2">'+escapeHtml(subjects)+'</textarea></div>';
+            document.getElementById('list_syllabus').insertAdjacentHTML('beforeend', createRowHtml(html));
+        }
+
+        function addJobRow(role='', salary='') {
+            const html = '<input type="text" class="j-role" placeholder="Job Role" value="'+escapeHtml(role)+'" style="flex:1;"><input type="text" class="j-salary" placeholder="Salary (e.g. ₹7,00,000)" value="'+escapeHtml(salary)+'" style="width:200px;">';
+            document.getElementById('list_jobs').insertAdjacentHTML('beforeend', createRowHtml(html));
+        }
+
+        function addFaqRow(q='', a='') {
+            const html = '<div style="flex:1"><input type="text" class="faq-q" placeholder="Question" value="'+escapeHtml(q)+'" style="margin-bottom:8px;"><textarea class="faq-a" placeholder="Answer" rows="2">'+escapeHtml(a)+'</textarea></div>';
+            document.getElementById('list_faqs').insertAdjacentHTML('beforeend', createRowHtml(html));
+        }
+
         function saveProgramDetails() {
             var id = document.getElementById('progDetailsId').value;
-            try {
-                var details = JSON.parse(document.getElementById('progDetailsContent').value);
-                api('/programs/' + id + '/details', { method: 'PUT', body: JSON.stringify({ details: details }) }).then(function() { 
-                    closeModal('programDetailsModal'); 
-                    alert('Program page content updated successfully! Remember to rebuild the static site.');
+            
+            // Collect main details
+            var details = {
+                full_name: document.getElementById('pd_full_name').value,
+                fees_range: document.getElementById('pd_fees_range').value,
+                hero_title: document.getElementById('pd_hero_title').value,
+                hero_desc: document.getElementById('pd_hero_desc').value,
+                about: document.getElementById('pd_about').value
+            };
+
+            // Collect features
+            var features = [];
+            ['benefit', 'who_should', 'specialization'].forEach(type => {
+                document.querySelectorAll('#list_'+type+' > div').forEach(row => {
+                    const title = row.querySelector('.f-title').value;
+                    const desc = row.querySelector('.f-desc').value;
+                    if (title) {
+                        const iconEl = row.querySelector('.f-icon');
+                        features.push({ type: type, title: title, description: desc, icon: iconEl ? iconEl.value : '' });
+                    }
                 });
-            } catch (e) {
-                alert('Invalid JSON format. Please ensure the content is valid JSON.\nError: ' + e.message);
-            }
+            });
+
+            // Collect syllabus
+            var syllabus = [];
+            document.querySelectorAll('#list_syllabus > div').forEach(row => {
+                const sem = row.querySelector('.s-sem').value;
+                if (sem) syllabus.push({ semester: sem, title: row.querySelector('.s-title').value, subjects: row.querySelector('.s-subj').value });
+            });
+
+            // Collect jobs
+            var jobs = [];
+            document.querySelectorAll('#list_jobs > div').forEach(row => {
+                const role = row.querySelector('.j-role').value;
+                if (role) jobs.push({ role: role, salary: row.querySelector('.j-salary').value });
+            });
+
+            // Collect faqs
+            var faqs = [];
+            document.querySelectorAll('#list_faqs > div').forEach(row => {
+                const q = row.querySelector('.faq-q').value;
+                if (q) faqs.push({ question: q, answer: row.querySelector('.faq-a').value });
+            });
+
+            // Collect list items
+            var listItems = [];
+            const addLists = (val, type, splitChar) => val.split(splitChar).map(s => s.trim()).filter(s => s).forEach(s => listItems.push({ type: type, content: s }));
+            addLists(document.getElementById('pd_skills').value, 'skill', ',');
+            addLists(document.getElementById('pd_recruiters').value, 'recruiter', ',');
+            addLists(document.getElementById('pd_eligibility').value, 'eligibility', '\n');
+
+            const payload = { details: details, features: features, syllabus: syllabus, jobs: jobs, faqs: faqs, listItems: listItems };
+
+            api('/programs/' + id + '/details', { method: 'PUT', body: JSON.stringify(payload) }).then(function() { 
+                closeModal('programDetailsModal'); 
+                alert('Program content updated successfully! You must rebuild the static site to see changes on the frontend.');
+            });
         }
 
         function deleteProgram(id) {

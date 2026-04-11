@@ -7,7 +7,7 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SER
 async function seedRelational() {
     console.log('Seeding relational program data...\n');
 
-    const { data: dbPrograms, error } = await supabase.from('programs').select('id, name, slug');
+    const { data: dbPrograms, error } = await supabase.from('programs').select('id, name');
     if (error) {
         console.error('Error fetching programs:', error.message);
         return;
