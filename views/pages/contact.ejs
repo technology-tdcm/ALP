@@ -24,10 +24,12 @@
                 <form class="contact-form" id="contactForm">
                     <h3 data-c="form-title">Contact Us</h3>
                     <div class="form-group"><label>I am a... *</label>
-                        <select name="role" id="contactRole" required>
+                        <select name="contact_type" id="contactRole" required>
                             <option value="">Select your role</option>
-                            <option value="student">Student</option>
-                            <option value="employee">Employee / Working Professional</option>
+                            <option value="Ex Employee">Ex Employee</option>
+                            <option value="Current Employee">Current Employee</option>
+                            <option value="Ex Student">Ex Student</option>
+                            <option value="Current Student">Current Student</option>
                         </select>
                     </div>
                     <div class="form-row">
@@ -74,14 +76,19 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            name: this.name.value, email: this.email.value, phone: this.phone.value,
+            name: this.name.value, 
+            email: this.email.value, 
+            phone: this.phone.value,
+            contact_type: this.contact_type.value,
             course: this.program ? this.program.value : '',
-            message: this.message.value, source: 'contact_' + this.role.value
+            message: this.message.value, 
+            source: 'contact_us'
         })
     }).then(function(r) { return r.json(); }).then(function(data) {
         btn.innerHTML = '<i class="fas fa-check"></i> Sent Successfully!';
         btn.style.background = 'var(--secondary)';
         setTimeout(function() { btn.innerHTML = orig; btn.style.background = ''; btn.disabled = false; }, 3000);
+        document.getElementById('contactForm').reset();
     }).catch(function() { btn.innerHTML = orig; btn.disabled = false; });
 });
 

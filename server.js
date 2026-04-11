@@ -79,9 +79,9 @@ app.get('/blog', async (req, res) => res.render('layout', { page: 'blog', conten
 
 // ===== PUBLIC API =====
 app.post('/api/leads', async (req, res) => {
-    const { name, email, phone, course, university, message, source } = req.body;
+    const { name, email, phone, course, university, message, source, contact_type } = req.body;
     if (!name || !email || !phone) return res.status(400).json({ error: 'Name, email, and phone are required' });
-    const { data, error } = await supabase.from('leads').insert([{ name, email, phone, course: course || '', university: university || '', message: message || '', source: source || 'website' }]).select('id').single();
+    const { data, error } = await supabase.from('leads').insert([{ name, email, phone, course: course || '', university: university || '', message: message || '', source: source || 'website', contact_type: contact_type || '' }]).select('id').single();
     if (error) return res.status(500).json({ error: error.message });
     res.json({ success: true, id: data.id });
 });

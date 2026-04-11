@@ -529,12 +529,13 @@
             api('/leads').then(function(data) {
                 var lead = data.leads.find(function(l) { return l.id === id; });
                 if (!lead) return;
+                var contactTypeHtml = lead.contact_type ? '<div style="margin-bottom:16px;"><strong>Contact Type:</strong> ' + lead.contact_type + '</div>' : '';
                 document.getElementById('leadDetail').innerHTML =
                     '<div style="margin-bottom:16px;"><strong>Name:</strong> ' + lead.name + '</div>' +
                     '<div style="margin-bottom:16px;"><strong>Email:</strong> ' + lead.email + '</div>' +
                     '<div style="margin-bottom:16px;"><strong>Phone:</strong> ' + lead.phone + '</div>' +
+                    contactTypeHtml +
                     '<div style="margin-bottom:16px;"><strong>Course:</strong> ' + (lead.course || '-') + '</div>' +
-                    '<div style="margin-bottom:16px;"><strong>University:</strong> ' + (lead.university || '-') + '</div>' +
                     '<div style="margin-bottom:16px;"><strong>Message:</strong> ' + (lead.message || '-') + '</div>' +
                     '<div style="margin-bottom:16px;"><strong>Source:</strong> ' + lead.source + '</div>' +
                     '<div style="margin-bottom:16px;"><strong>Status:</strong> <select id="leadStatus" onchange="updateLeadStatus(' + id + ')"><option value="new"' + (lead.status==='new'?' selected':'') + '>New</option><option value="contacted"' + (lead.status==='contacted'?' selected':'') + '>Contacted</option><option value="converted"' + (lead.status==='converted'?' selected':'') + '>Converted</option><option value="lost"' + (lead.status==='lost'?' selected':'') + '>Lost</option></select></div>' +
