@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        :root { --primary: #1E28B4; --secondary: #FA6400; --dark: #1A1A2E; --gray-100: #f4f4f6; --gray-200: #e8e8ed; --gray-500: #8e8ea0; --gray-600: #6c6c80; --gray-700: #40405a; --white: #fff; --radius: 10px; --shadow: 0 2px 12px rgba(0,0,0,0.08); }
+        :root { --primary: #1E28B4; --secondary: #FA6400; --dark: #1A1A2E; --gray-50: #f9f9fb; --gray-100: #f4f4f6; --gray-200: #e8e8ed; --gray-500: #8e8ea0; --gray-600: #6c6c80; --gray-700: #40405a; --white: #fff; --radius: 10px; --shadow: 0 2px 12px rgba(0,0,0,0.08); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: var(--gray-100); display: flex; min-height: 100vh; }
         .sidebar { width: 240px; background: var(--dark); color: var(--white); padding: 20px 0; position: fixed; top: 0; left: 0; bottom: 0; overflow-y: auto; z-index: 100; }
@@ -64,14 +64,18 @@
         .filter-bar { display: flex; gap: 12px; margin-bottom: 20px; align-items: center; flex-wrap: wrap; }
         .filter-bar select, .filter-bar input { padding: 8px 14px; border: 2px solid var(--gray-200); border-radius: 8px; font-size: 13px; font-family: 'Inter', sans-serif; }
         .filter-bar select:focus, .filter-bar input:focus { outline: none; border-color: var(--primary); }
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 200; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 200; backdrop-filter: blur(2px); }
         .modal-overlay.show { display: flex; }
-        .modal { background: var(--white); border-radius: 12px; width: 560px; max-width: 90vw; max-height: 90vh; overflow-y: auto; }
-        .modal-header { padding: 20px 24px; border-bottom: 1px solid var(--gray-200); display: flex; justify-content: space-between; align-items: center; }
-        .modal-header h3 { font-size: 18px; font-weight: 700; }
-        .modal-close { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--gray-500); }
+        .modal { background: var(--white); border-radius: 12px; width: 560px; max-width: 90vw; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+        .modal-large { max-width: 900px; width: 95%; }
+        .modal-large .modal-body { display: flex; flex-direction: column; overflow: hidden; max-height: calc(90vh - 140px); }
+        .modal-large .tab-content { overflow-y: auto; flex: 1; }
+        .modal-header { padding: 20px 24px; border-bottom: 1px solid var(--gray-200); display: flex; justify-content: space-between; align-items: center; background: var(--gray-50); }
+        .modal-header h3 { font-size: 18px; font-weight: 700; color: var(--dark); }
+        .modal-close { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--gray-500); transition: color 0.2s; }
+        .modal-close:hover { color: var(--dark); }
         .modal-body { padding: 24px; }
-        .modal-footer { padding: 16px 24px; border-top: 1px solid var(--gray-200); display: flex; justify-content: flex-end; gap: 10px; }
+        .modal-footer { padding: 16px 24px; border-top: 1px solid var(--gray-200); display: flex; justify-content: flex-end; gap: 10px; background: var(--gray-50); }
         .form-group { margin-bottom: 16px; }
         .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--gray-700); margin-bottom: 6px; }
         .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 14px; border: 2px solid var(--gray-200); border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif; }
@@ -99,6 +103,23 @@
             .leads-charts { grid-template-columns: 1fr; }
             .form-row { grid-template-columns: 1fr; }
         }
+        .tab-btn { padding: 14px 20px; background: none; border: none; font-size: 14px; font-weight: 500; color: var(--gray-600); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; }
+        .tab-btn:hover { color: var(--dark); }
+        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .dynamic-list { display: flex; flex-direction: column; gap: 10px; }
+        .dynamic-list input, .dynamic-list textarea { width: 100%; padding: 10px 12px; border: 2px solid var(--gray-200); border-radius: 6px; font-size: 14px; font-family: 'Inter', sans-serif; background: var(--white); }
+        .dynamic-list input:focus, .dynamic-list textarea:focus { outline: none; border-color: var(--primary); }
+        .dynamic-list .row-item { display: flex; gap: 10px; align-items: flex-start; background: var(--gray-100); padding: 12px; border-radius: 8px; border: 1px solid var(--gray-200); }
+        .dynamic-list .row-item .btn-danger { padding: 8px 12px; font-size: 12px; }
+        .feature-section h4 { font-size: 15px; font-weight: 600; color: var(--dark); margin-bottom: 12px; }
+        .tab-content .form-group { margin-bottom: 20px; }
+        .tab-content .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--gray-700); margin-bottom: 8px; }
+        .tab-content .form-group input, .tab-content .form-group textarea { width: 100%; padding: 12px 14px; border: 2px solid var(--gray-200); border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif; background: var(--white); transition: border-color 0.2s; }
+        .tab-content .form-group input:focus, .tab-content .form-group textarea:focus { outline: none; border-color: var(--primary); }
+        .tabs { display: flex; gap: 0; border-bottom: 2px solid var(--gray-200); overflow-x: auto; }
+        .tabs::-webkit-scrollbar { display: none; }
+        .tab-pane { display: none; padding: 24px; }
+        .tab-pane.active { display: block; }
     </style>
 </head>
 <body>
@@ -244,16 +265,16 @@
 
     <!-- Program Details Modal -->
     <div class="modal-overlay" id="programDetailsModal">
-        <div class="modal" style="max-width: 900px; width: 95%; max-height: 90vh; display: flex; flex-direction: column;">
+        <div class="modal modal-large">
             <div class="modal-header">
                 <h3>Edit Detailed Page Content</h3>
                 <button class="modal-close" onclick="closeModal('programDetailsModal')">&times;</button>
             </div>
             
-            <div class="modal-body" style="overflow-y: auto; flex: 1; padding: 0;">
+            <div class="modal-body">
                 <input type="hidden" id="progDetailsId">
                 
-                <div class="tabs" style="display: flex; background: var(--gray-50); border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 10;">
+                <div class="tabs">
                     <button class="tab-btn active" onclick="switchTab('tab-hero')">Hero & About</button>
                     <button class="tab-btn" onclick="switchTab('tab-features')">Features</button>
                     <button class="tab-btn" onclick="switchTab('tab-syllabus')">Syllabus</button>
@@ -262,7 +283,7 @@
                     <button class="tab-btn" onclick="switchTab('tab-lists')">Lists</button>
                 </div>
 
-                <div class="tab-content" style="padding: 20px;">
+                <div class="tab-content">
                     <!-- Hero & About -->
                     <div id="tab-hero" class="tab-pane active">
                         <div class="form-row">
@@ -641,14 +662,14 @@
         }
 
         function createRowHtml(inputsHtml) {
-            return '<div style="display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; background:var(--gray-50); padding:10px; border-radius:4px; border:1px solid var(--gray-200);">' + 
+            return '<div class="row-item">' + 
                    inputsHtml + 
-                   '<button type="button" class="btn btn-sm btn-danger" style="padding:6px 10px;" onclick="this.parentElement.remove()">X</button></div>';
+                   '<button type="button" class="btn btn-sm btn-danger" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button></div>';
         }
 
         function addFeatureRow(type, title='', desc='', icon='') {
             const hasIcon = type !== 'who_should';
-            let html = '<div style="flex:1"><input type="text" class="f-title" placeholder="Title" value="'+escapeHtml(title)+'" style="margin-bottom:8px;"><textarea class="f-desc" placeholder="Description" rows="2">'+escapeHtml(desc)+'</textarea></div>';
+            let html = '<div style="flex:1"><input type="text" class="f-title" placeholder="Title" value="'+escapeHtml(title)+'"><textarea class="f-desc" placeholder="Description" rows="2">'+escapeHtml(desc)+'</textarea></div>';
             if (hasIcon) html = '<input type="text" class="f-icon" placeholder="Icon class" value="'+escapeHtml(icon)+'" style="width:150px;">' + html;
             document.getElementById('list_'+type).insertAdjacentHTML('beforeend', createRowHtml(html));
         }
@@ -664,7 +685,7 @@
         }
 
         function addFaqRow(q='', a='') {
-            const html = '<div style="flex:1"><input type="text" class="faq-q" placeholder="Question" value="'+escapeHtml(q)+'" style="margin-bottom:8px;"><textarea class="faq-a" placeholder="Answer" rows="2">'+escapeHtml(a)+'</textarea></div>';
+            const html = '<div style="flex:1"><input type="text" class="faq-q" placeholder="Question" value="'+escapeHtml(q)+'"><textarea class="faq-a" placeholder="Answer" rows="2">'+escapeHtml(a)+'</textarea></div>';
             document.getElementById('list_faqs').insertAdjacentHTML('beforeend', createRowHtml(html));
         }
 
