@@ -299,6 +299,14 @@
                             </div>
                             <div id="list_specialization" class="dynamic-list"></div>
                         </div>
+                        <hr style="margin: 20px 0; border: none; border-top: 1px solid var(--gray-200);">
+                        <div class="feature-section">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <h4>Admission Steps</h4>
+                                <button class="btn btn-sm btn-outline" onclick="addFeatureRow('admission_step')">+ Add Step</button>
+                            </div>
+                            <div id="list_admission_step" class="dynamic-list"></div>
+                        </div>
                     </div>
 
                     <!-- Syllabus -->
@@ -601,7 +609,7 @@
                 document.getElementById('pd_eligibility').value = lists.filter(l => l.type === 'eligibility').map(l => l.content).join('\n');
 
                 // Clear lists
-                ['benefit', 'who_should', 'specialization'].forEach(t => document.getElementById('list_'+t).innerHTML = '');
+                ['benefit', 'who_should', 'specialization', 'admission_step'].forEach(t => document.getElementById('list_'+t).innerHTML = '');
                 document.getElementById('list_syllabus').innerHTML = '';
                 document.getElementById('list_jobs').innerHTML = '';
                 document.getElementById('list_faqs').innerHTML = '';
@@ -674,7 +682,7 @@
 
             // Collect features
             var features = [];
-            ['benefit', 'who_should', 'specialization'].forEach(type => {
+            ['benefit', 'who_should', 'specialization', 'admission_step'].forEach(type => {
                 document.querySelectorAll('#list_'+type+' > div').forEach(row => {
                     const title = row.querySelector('.f-title').value;
                     const desc = row.querySelector('.f-desc').value;
