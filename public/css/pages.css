@@ -11,7 +11,7 @@
     inset: 0;
     background:
         linear-gradient(to right, rgba(15,18,51,0.92) 0%, rgba(26,26,46,0.85) 50%, rgba(30,40,180,0.75) 100%),
-        url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920&q=80') center/cover no-repeat;
+        url('/images/hero-bg.jpg') center/cover no-repeat;
 }
 
 .page-hero .container {
@@ -640,7 +640,7 @@
     inset: 0;
     background:
         linear-gradient(to right, rgba(15,18,51,0.92) 0%, rgba(26,26,46,0.85) 50%, rgba(30,40,180,0.75) 100%),
-        url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&q=80') center/cover no-repeat;
+        url('/images/hero-bg.jpg') center/cover no-repeat;
 }
 
 .prog-hero-content {

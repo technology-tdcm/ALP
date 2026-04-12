@@ -237,7 +237,7 @@ ul {
 }
 
 .logo img {
-    height: 42px;
+    height: 60px;
     width: auto;
 }
 
@@ -515,7 +515,7 @@ ul {
     inset: 0;
     background:
         linear-gradient(to right, rgba(15,18,51,0.95) 0%, rgba(26,26,46,0.75) 40%, rgba(30,40,180,0.20) 70%, transparent 100%),
-        url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&q=80') center/cover no-repeat;
+        url('/images/hero-bg.jpg') center/cover no-repeat;
 }
 
 .hero .container {
@@ -834,7 +834,7 @@ ul {
     background: var(--white);
     border: 2px solid var(--gray-200);
     border-radius: var(--radius-md);
-    width: 100px;
+    width: 140px;
     height: 100px;
     display: flex;
     align-items: center;
@@ -842,6 +842,7 @@ ul {
     transition: var(--transition);
     cursor: pointer;
     flex-shrink: 0;
+    padding: 10px;
 }
 
 .uni-logo-card:hover {
@@ -855,6 +856,12 @@ ul {
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.uni-logo-card img {
+    max-width: 90%;
+    max-height: 70px;
+    object-fit: contain;
 }
 
 /* ===== Why Section ===== */
