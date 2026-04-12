@@ -360,6 +360,22 @@
     margin-bottom: 16px;
 }
 
+.uni-card-logo {
+    width: 80px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.uni-card-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+}
+
 .uni-card-full h3 {
     font-size: 18px;
     font-weight: 700;
