@@ -319,6 +319,12 @@
     font-size: 12px;
 }
 
+.program-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
 /* ===== Universities Page ===== */
 .universities-page {
     padding: 60px 0;
